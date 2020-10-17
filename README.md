@@ -1,8 +1,14 @@
 ## ~ ~ ~ Run LTR_HARVEST in parallel ~ ~ ~
-This is a Perl wrapper for LTR_harvest. All rights reserved to the original author. B
+This is a Perl wrapper for LTR_harvest modified from [LTR_FINDER_parallel](https://github.com/oushujun/LTR_FINDER_parallel). All rights reserved to the original authors.
 
 
-### Installation: No need. Just download and run.
+### Prerequisite: [GenomeTools](https://github.com/genometools/genometools)
+`conda create -n LTR_HARVEST_parallel`  
+`conda install -n LTR_HARVEST_parallel -c bioconda -y genometools-genometools`  
+`conda activate LTR_HARVEST_parallel`
+
+
+### Installation of LTR_HARVEST_parallel: No need. Just download and run.
 
 	Usage: perl LTR_HARVEST_parallel -seq [file] -size [int] -threads [int]  
 	Options:
@@ -15,9 +21,9 @@ This is a Perl wrapper for LTR_harvest. All rights reserved to the original auth
 		-try1   [0|1]   If a region requires more time than the specified -time (timeout), decide:  
 					0, discard the entire region.
 					1, further split to 50 Kb regions to salvage LTR candidates (default);
-		-next           Only summarize the results for previous jobs without rerunning LTR_FINDER (for -v).
+		-next           Only summarize the results for previous jobs without rerunning LTR_HARVEST (for -v).
 		-verbose|-v     Retain LTR_FINDER outputs for each sequence piece.
-		-threads|-t     [int]   Indicate how many CPU/threads you want to run LTR_FINDER.
+		-threads|-t     [int]   Indicate how many CPU/threads you want to run LTR_HARVEST.
 		-check_dependencies Check if dependencies are fullfiled and quit
 		-help|-h        Display this help information.
 
