@@ -22,7 +22,7 @@ This is a Perl wrapper for LTR_harvest modified from [LTR_FINDER_parallel](https
 					0, discard the entire region.
 					1, further split to 50 Kb regions to salvage LTR candidates (default);
 		-next           Only summarize the results for previous jobs without rerunning LTR_HARVEST (for -v).
-		-verbose|-v     Retain LTR_FINDER outputs for each sequence piece.
+		-verbose|-v     Retain LTR_HARVEST outputs for each sequence piece.
 		-threads|-t     [int]   Indicate how many CPU/threads you want to run LTR_HARVEST.
 		-check_dependencies Check if dependencies are fullfiled and quit
 		-help|-h        Display this help information.
