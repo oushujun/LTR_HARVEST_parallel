@@ -13,8 +13,8 @@ my $seq_path = ""; #specify the sequence file
 my $size_of_each_piece = 5000000; #5 Mb per piece
 my $timeout = 1500; #set maximum time for a thread to run. After $timeout seconds, the child thread is killed.
 my $try1 = 1; #1, further split to 50 Kb regions if thread killed by timeout. 0, no further split.
-my $next = 0; #0, run LTRharvest. 1, only summarize results if the .finder folder is retained.
-my $verbose = 0; #0, remove the .finder folder after finished; 1, retain the folder for later use.
+my $next = 0; #0, run LTRharvest. 1, only summarize results if the .harvest folder is retained.
+my $verbose = 0; #0, remove the .harvest folder after finished; 1, retain the folder for later use.
 my $threads = 4; #specify thread number to run LTRharvest
 my $annotator = "LTR_HARVEST_parallel"; #the annotator name used in gff output
 
