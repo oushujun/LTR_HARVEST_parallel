@@ -10,7 +10,7 @@ This is a Perl wrapper for LTR_harvest modified from [LTR_FINDER_parallel](https
 
 ### Installation of LTR_HARVEST_parallel: No need. Just download and run.
 
-	Usage: perl LTR_HARVEST_parallel -seq [file] -size [int] -threads [int]  
+	Usage: perl LTR_HARVEST_parallel -seq [file] -size [int] -overlap [int] -threads [int]  
 	Options:
 		-seq    [file]  Specify the sequence file.
 		-size   [int]   Specify the size you want to split the genome sequence.
