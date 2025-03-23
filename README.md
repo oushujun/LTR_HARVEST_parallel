@@ -15,9 +15,10 @@ This is a Perl wrapper for LTR_harvest modified from [LTR_FINDER_parallel](https
 		-seq    [file]  Specify the sequence file.
 		-size   [int]   Specify the size you want to split the genome sequence.
 				Please make it large enough to avoid spliting too many LTR elements. Default 5000000 (bp).  			 
+		-overlap|-o        [int]   Specify the overlapping size for each split piece. Default 100000 (bp)
 		-time   [int]   Specify the maximum time to run a subregion (a thread).
-				This helps to skip simple repeat regions that take a substantial of time to run. Default: 1500 (seconds).
-				Suggestion: 300 for -size 1000000. Increase -time when -size increased.  
+				This helps to skip simple repeat regions that take a substantial of time to run. Default: 120 (seconds).
+				Increase -time when -size increased.  
 		-try1   [0|1]   If a region requires more time than the specified -time (timeout), decide:  
 					0, discard the entire region.
 					1, further split to 50 Kb regions to salvage LTR candidates (default);
