@@ -40,6 +40,7 @@ while (<Seq>) {
     s/>//g;
     chomp;
     next if /^\s+$/;
+    s/\r\n/\n/g; # replace all DOS-newlines with Unix-newlines
     my ($id, $seq) = (split /\n/, $_, 2);
     $seq =~ s/\s+//g;
     my $j = 1;
