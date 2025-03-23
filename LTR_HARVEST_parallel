@@ -167,8 +167,8 @@ sub worker {
                 chomp $seq;
                 $seq =~ s/\s+//;
                 print localtime() ." CPU".threads -> self() -> tid().": running on $seq\n";
-                `timeout ${timeout}s ${genometools}gt suffixerator -db $seq -indexname $seq -tis -suf -lcp -des -ssp -sds -dna 2>/dev/null`;
-                `timeout ${timeout}s ${genometools}gt ltrharvest -index $seq $harvest_para > $seq.harvest.scn 2>/dev/null`;
+                `timeout -s KILL ${timeout}s ${genometools}gt suffixerator -db $seq -indexname $seq -tis -suf -lcp -des -ssp -sds -dna 2>/dev/null`;
+                `timeout -s KILL ${timeout}s ${genometools}gt ltrharvest -index $seq $harvest_para > $seq.harvest.scn 2>/dev/null`;
                  if ($? ne 0 and $try1 ne 0){
                         print localtime() ." CPU".threads -> self() -> tid().": $seq timeout, process it with the salvage mode\n";
                         my $in=`perl $script_path/LTR_HARVEST_parallel -seq $seq -size 50000 -time 30 -try1 0 -threads 1 -cut $cut -gt $genometools`;
