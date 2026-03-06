@@ -101,20 +101,21 @@ $genometools="$genometools/" if $genometools ne '' and $genometools !~ /\/$/;
 die "LTR_HARVEST is not exist in the path $genometools!\n" unless -X "${genometools}gt";
 print "\nUsing this LTR_HARVEST: ${genometools}gt\n"; #test
 
-# make a softlink to the genome file
+# strip annotations from seq IDs (keep only first word after >) and use as working copy
 my $seq_file = basename($seq_path);
-`ln -s $seq_path $seq_file` unless -s $seq_file;
+my $seq_clean = "$seq_file.shortID";
+`perl -pe 's/^>(\\S+).*/>\$1/' $seq_path > $seq_clean` unless -s $seq_clean;
 
 if ($threads == 1){
 # run the original single threaded code
-`${genometools}gt suffixerator -db $seq_file -indexname $seq_file -tis -suf -lcp -des -ssp -sds -dna 2>/dev/null`;
-`${genometools}gt ltrharvest -index $seq_file $harvest_para > $seq_file.harvest.combine.scn 2>/dev/null`;
-`rm $seq_file.des $seq_file.esq $seq_file.lcp $seq_file.llv $seq_file.md5 $seq_file.prj $seq_file.sds $seq_file.ssp $seq_file.suf 2>/dev/null`;
+`${genometools}gt suffixerator -db $seq_clean -indexname $seq_clean -tis -suf -lcp -des -ssp -sds -dna 2>/dev/null`;
+`${genometools}gt ltrharvest -index $seq_clean $harvest_para > $seq_file.harvest.combine.scn 2>/dev/null`;
+`rm $seq_clean.des $seq_clean.esq $seq_clean.lcp $seq_clean.llv $seq_clean.md5 $seq_clean.prj $seq_clean.sds $seq_clean.ssp $seq_clean.suf 2>/dev/null`;
 
 } else {
 ## run the paralleled code
 # read genome in memory
-open SEQ, "<$seq_file" or die $usage;
+open SEQ, "<$seq_clean" or die $usage;
 open GFF, ">$seq_file.harvest.combine.gff3" or die $!;
 print GFF "##gff-version   3\n";
 my %seq; #a hash to store seq name and length info
@@ -158,7 +159,7 @@ goto Next if $next == 1; #run the next step if all LTR_HARVEST processes are don
 
 `mkdir $seq_file.harvest` unless -d "$seq_file.harvest";
 chdir "$seq_file.harvest";
-`perl $cut ../$seq_file -s -l $size_of_each_piece -o $overlap_length`;
+`perl $cut ../$seq_clean -s -l $size_of_each_piece -o $overlap_length`;
 
 ##multi-threading using queue, create a worker module for parallel computation
 my $process_q=Thread::Queue->new();
@@ -180,7 +181,7 @@ sub worker {
         }
 
 #insert seq names into the worker queue
-open List, "<../$seq_file.list" or die $!;
+open List, "<../$seq_clean.list" or die $!;
 $process_q -> enqueue (<List>);
 $process_q -> end(); #stop adding items to the queue
 close List;
@@ -219,7 +220,7 @@ print Out "#LTR_HARVEST_parallel -seq $seq_file -size $size_of_each_piece -time 
 my %seen;  # Hash to track duplicate entries
 my $count = 1; #count repeats in gff
 
-open List, "<$seq_file.list" or die $!;
+open List, "<$seq_clean.list" or die $!;
 foreach my $seq (<List>){
         $seq =~ s/\s+//;
         my ($base, $order) = ($1, $2) if $seq =~ /(.*)_sub([0-9]+)$/;
