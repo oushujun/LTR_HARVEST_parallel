@@ -10,7 +10,7 @@ use Pod::Usage;
 # updates
 # add the -o parameter. Facilitated by DeepSeek R1. 03/23/2025
 
-my $version = "v1.2";
+my $version = "v1.3";
 # customized parameters
 my $seq_path = ""; #specify the sequence file
 my $harvest_para = "-minlenltr 100 -maxlenltr 7000 -mintsd 4 -maxtsd 6 -motif TGCA -motifmis 1 -similar 85 -vic 10 -seed 20 -seqids yes"; #specify LTR_HARVEST parameters.

@@ -30,7 +30,7 @@ This is a Perl wrapper for LTR_harvest modified from [LTR_FINDER_parallel](https
 
 
 ### Input
-Genome file in multi-FASTA format.
+Genome file in multi-FASTA format. The program will be automatically shortern the sequence ID by just keeping the string before the first space.
 
 
 ### Output
